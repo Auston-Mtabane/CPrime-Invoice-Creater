@@ -7,6 +7,13 @@
 
 #container {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
 
+}
+
+.rounded-div{
+  padding: 20px;
+  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
+  border: 1px solid rgb(68, 68, 68);
+  border-radius: 15px;
 }
