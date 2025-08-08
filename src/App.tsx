@@ -12,6 +12,9 @@ function App() {
           <p>preview goes here</p>
         </div>
       </div>
+      <button>
+        Send Email
+      </button>
     </>
   )
 }
