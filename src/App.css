@@ -7,7 +7,7 @@
 
 #container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
 
 }
 
@@ -17,3 +17,35 @@
   border: 1px solid rgb(68, 68, 68);
   border-radius: 15px;
 }
+
+#client-details input {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+input {
+ 
+  padding: 0.5em;
+  font-size: 1em;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #ff9e0c;
+  outline: none;
+}
+
+.row-item {
+  display: grid;
+  grid-template-columns: 50% 10% 15% 15%;
+
+  justify-content: space-between;
+  padding: 0.5em 0;
+}
+

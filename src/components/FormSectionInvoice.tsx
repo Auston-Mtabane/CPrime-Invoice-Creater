@@ -4,7 +4,7 @@ function FormSectionInvoice() {
     <>
     <p>Client Details</p>
     <form action="#" method="post">
-        <div className="rounded-div">
+        <div className="rounded-div" id="client-details">
             <label htmlFor="fname" >FullName:</label>
             <input type="name" placeholder="John Doe" id="fname" name="fname"/>
 
@@ -17,13 +17,20 @@ function FormSectionInvoice() {
         <p>Invoice/Quote Items</p>
         <div className="rounded-div">
             <div>
-                <p>Item Name/Description   Quantity   Amount (R)  Sub Total</p>
-                
+                <div className="row-item">
+                   <p>Item Name/Description</p>
+                   <p>Quantity</p>
+                   <p>Amount (R)</p>
+                   <p>Sub Total</p>
+                </div>
                 <br />
-                <input type="email" placeholder="doejohn3@gmail.com" id="femail" name="femail"/>
-                <input type="tel" placeholder="27 61 961 0499" id="fphone" name="fphone"/>
-                <input type="tel" placeholder="27 61 961 0499" id="fphone" name="fphone"/>
-                <input type="tel" placeholder="27 61 961 0499" id="fphone" name="fphone"/>
+                <div className="row-item">
+                    <input type="text" placeholder="Item" name="item-name" />
+                    <input type="number" placeholder="0" name="item-quantity" />
+                    <input type="number" placeholder="0.00" name="item-amount" />
+                    <input type="number" placeholder="0.00" name="item-subtotal" />
+                </div>
+                
             </div>
             <button >Add Item (+)</button>
         </div>
