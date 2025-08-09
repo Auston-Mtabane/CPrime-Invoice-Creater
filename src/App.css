@@ -43,9 +43,50 @@ input:focus {
 
 .row-item {
   display: grid;
-  grid-template-columns: 50% 10% 15% 15%;
+  grid-template-columns: 40% 10% 15% 15% 10%;
 
   justify-content: space-between;
   padding: 0.5em 0;
 }
 
+#add-btn {
+  background-color: #ff7700c3;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.item{
+  align-items: center;
+  align-content: center;
+  border-bottom: 1px solid #4f4f4f;
+}
+
+#delete-btn {
+  display: flex;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #141414;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+#delete-btn:hover {
+  display: flex;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
