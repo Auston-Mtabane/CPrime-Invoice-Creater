@@ -27,5 +27,5 @@ The form calculates subtotal dynamically and supports smooth input of quantity a
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/your-username/react-invoice-form.git
-cd react-invoice-form
+git clone git@github.com:Auston-Mtabane/CPrime-Invoice-Creater.git
+cd CPrime-Invoice-Creater
