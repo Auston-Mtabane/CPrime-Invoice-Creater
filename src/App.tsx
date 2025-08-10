@@ -12,8 +12,8 @@ function App() {
       <head><style>/* your CSS here */</style></head>
       <body>
         <h1>Invoice for ${client.fname}</h1>
-        <p>Email: ${client.femail}</p>
-        <p>Phone: ${client.fphone}</p>
+        <h3>Email: ${client.femail}</h3>
+        <h3>Phone: ${client.fphone}</h3>
         <table>
           <thead><tr><th>Item No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
