@@ -1,136 +1,98 @@
 import React, { useState } from "react";
-import Item from "./Item";
+import { ClientForm } from "./ClientForm";
+import { ItemRow } from "./ItemRow";
+import { ItemForm } from "./ItemForm";
 
 type Item = {
-  index: number
   name: string;
   quantity: number;
   amount: number;
   subtotal: number;
-}
+};
 
-let items: Item[] = [];
+export default function InvoiceForm() {
+  const [client, setClient] = useState({ fname: "", femail: "", fphone: "" });
+  const [item, setItem] = useState({ name: "", quantity: "", amount: "" });
+  const [items, setItems] = useState<Item[]>([]);
 
-function FormSectionInvoice() {
+  const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setClient((prev) => ({ ...prev, [name]: value }));
+  };
 
-
-  const [item, setItem] = useState({
-    name: "",
-    quantity: "",
-    amount: "",
-  });
+  const handleItemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setItem((prev) => ({ ...prev, [name]: value }));
+  };
 
   const addItem = () => {
+    if (!item.name || !item.quantity || !item.amount) return;
     const newItem: Item = {
-      index: items.length,
       name: item.name,
       quantity: Number(item.quantity),
       amount: Number(item.amount),
-      subtotal: Number(item.quantity) * Number(item.amount),
+      subtotal: (Number(item.quantity) || 0) * (Number(item.amount) || 0),
     };
-    items.push(newItem);
+    setItems([...items, newItem]);
     setItem({ name: "", quantity: "", amount: "" });
-    console.log(items);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setItem((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const deleteItem = (index: number) => {
+    setItems(items.filter((_, i) => i !== index));
   };
 
-  const subtotal = Number(item.quantity) * Number(item.amount);
+  const subtotal = (Number(item.quantity) || 0) * (Number(item.amount) || 0);
+
+  const handlePreview = (e: React.FormEvent) => {
+    e.preventDefault();
+    const invoiceData = { client, items };
+    const jsonString = JSON.stringify(invoiceData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "invoice.json";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
-    <>
+    <form onSubmit={handlePreview}>
       <p>Client Details</p>
-      <form action="/" method="post">
-        <div className="rounded-div" id="client-details">
-          <label htmlFor="fname">FullName:</label>
-          <input type="name" placeholder="John Doe" id="fname" name="fname" />
+      <ClientForm client={client} onChange={handleClientChange} />
 
-          <label htmlFor="femail">Email:</label>
-          <input
-            type="email"
-            placeholder="doejohn3@gmail.com"
-            id="femail"
-            name="femail"
-          />
-          <br />
-
-          <label htmlFor="fphone">Mobile/Tel:</label>
-          <input
-            type="tel"
-            placeholder="27 61 961 0499"
-            id="fphone"
-            name="fphone"
-          />
+      <p>Invoice/Quote Items</p>
+      <div className="rounded-div" id="invoice-items">
+        <div className="row-item">
+          <p>Item Name/Description</p>
+          <p>Quantity</p>
+          <p>Amount (R)</p>
+          <p>Sub Total</p>
         </div>
-        <p>Invoice/Quote Items</p>
-        <div className="rounded-div">
-          <div>
-            <div className="row-item">
-              <p>Item Name/Description</p>
-              <p>Quantity</p>
-              <p>Amount (R)</p>
-              <p>Sub Total</p>
-            </div>
 
-            <div className="added-items">
-              {items.map((item) => (
-                <Item
-                  key={item.index}
-                  index={item.index}
-                  name={item.name}
-                  quantity={item.quantity}
-                  amount={item.amount}
-                  subtotal={item.subtotal}
-                />
-
-              ))}
-            </div>
-            <br />
-            <div className="row-item">
-              <input
-                type="text"
-                placeholder="Item"
-                name="name"
-                value={item.name}
-                onChange={handleChange}
-              />
-              <input
-                type="number"
-                placeholder="0"
-                name="quantity"
-                value={item.quantity}
-                onChange={handleChange}
-              />
-              <input
-                type="number"
-                placeholder="0.00"
-                name="amount"
-                value={item.amount}
-                onChange={handleChange}
-              />
-              <input
-                type="number"
-                placeholder="0.00"
-                name="item-subtotal"
-                value={subtotal}
-                readOnly
-              />
-            </div>
-          </div>
-          <button id="add-btn" type="button" onClick={addItem}>+</button>
-        </div>
+        {items.map((it, idx) => (
+          <ItemRow
+            key={idx}
+            index={idx}
+            name={it.name}
+            quantity={it.quantity}
+            amount={it.amount}
+            subtotal={it.subtotal}
+            onDelete={deleteItem}
+          />
+        ))}
 
         <br />
-        <input type="submit" value="preview" />
-      </form>
-    </>
+        <ItemForm
+          item={item}
+          onChange={handleItemChange}
+          onAdd={addItem}
+          subtotal={subtotal}
+        />
+      </div>
+
+      <br />
+      <button type="submit">Preview</button>
+    </form>
   );
 }
-
-export default FormSectionInvoice;

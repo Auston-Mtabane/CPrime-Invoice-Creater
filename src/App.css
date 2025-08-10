@@ -90,3 +90,7 @@ input:focus {
   cursor: pointer;
   transition: background-color 0.25s;
 }
+
+#invoice-items {
+  font-size: 0.9rem;
+}
