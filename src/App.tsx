@@ -9,9 +9,95 @@ function App() {
   // This function will generate the HTML preview string (can move it outside App)
   const generateInvoiceHTML = (client, items) => `
     <html>
-      <head><style>/* your CSS here */</style></head>
+      <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+body {
+  font-family:  "Plus Jakarta Sans", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 1em;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+table, td ,th{
+    
+    margin: 0; padding: 1em; 
+    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+    line-height: 1.5;
+    border-bottom: 1px solid #464444;
+    
+  }
+  th {
+    font-weight: 600;
+    text-align: left;
+    border-right: 1px solid #0b0b0b;
+    background-color: #ff7700c3;
+    
+  }
+
+table {
+    width: 80vw;
+    border-collapse: collapse;
+    margin: 3em;
+    margin-bottom: 1em;
+    
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+</style></head>
       <body>
-        <h1>Invoice for ${client.fname}</h1>
+        <h1>Invoice for</h1> 
+        <h4>Name: ${client.fname}</h4>
         <h3>Email: ${client.femail}</h3>
         <h3>Phone: ${client.fphone}</h3>
         <table>
@@ -63,7 +149,7 @@ function App() {
           <iframe
             title='Invoice Preview'
             srcDoc={generateInvoiceHTML(client, items)}
-            style={{ width: '100%', height: '400px', border: '1px solid #ccc' }}
+            style={{ width: '95%', height: '90%',margin: '1em' }}
           />
 
           
