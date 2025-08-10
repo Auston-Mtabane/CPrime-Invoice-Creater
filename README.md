@@ -1,7 +1,27 @@
-# React Invoice Form
+# Custom Themed Invoice Generator
 
-A simple React component for an invoice/quote form with client details and a single invoice item entry.  
-The form calculates subtotal dynamically and supports smooth input of quantity and amount fields.
+This project creates invoices as HTML emails, applying a customized touch of colors and themes.
+
+---
+
+## Tech-Stack
+
+- React  
+- Node.js + Vite  
+- CSS  
+- Flask (future iterations)
+
+---
+
+## Problem & Solution
+
+### Problem
+
+As a graphic designer, when sending invoices or quotes to my clients, I often had to use well-designed PDFs from a template I created. Editing PDFs every time was exhausting because I had to start a heavy graphics app like Adobe Illustrator. The design was fragile, the PDF export took time, and the file sizes were large (2MB–20MB). After all this, I still had to compose an email to deliver the invoice.
+
+### Solution
+
+Have everything in HTML. This makes rendering much faster and easier, and decreases file sizes to kilobytes since HTML files are lightweight. It also enables easy theme changes by pushing buttons. The dashboard will not only create but also send invoice emails to clients with improved load times.
 
 ---
 
@@ -10,7 +30,6 @@ The form calculates subtotal dynamically and supports smooth input of quantity a
 - Client details input fields (Full Name, Email, Mobile/Tel)  
 - Single invoice item with fields for Item name, Quantity, Amount  
 - Live subtotal calculation for the invoice item  
-- Prevents input glitches by storing quantities and amounts as strings during typing  
 - Basic styling structure ready for customization  
 
 ---
@@ -29,3 +48,20 @@ The form calculates subtotal dynamically and supports smooth input of quantity a
 ```bash
 git clone git@github.com:Auston-Mtabane/CPrime-Invoice-Creater.git
 cd CPrime-Invoice-Creater
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+
+```
+3. Start the development server: (Front End)
+
+```bash
+npm run dev
+# or
+yarn dev
+```
