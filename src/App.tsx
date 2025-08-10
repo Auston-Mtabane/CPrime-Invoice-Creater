@@ -15,10 +15,11 @@ function App() {
         <p>Email: ${client.femail}</p>
         <p>Phone: ${client.fphone}</p>
         <table>
-          <thead><tr><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
+          <thead><tr><th>Item No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
             ${items.map(item => `
               <tr>
+              <td>${item.index+1}</td>
                 <td>${item.name}</td>
                 <td>${item.quantity}</td>
                 <td>${item.amount.toFixed(2)}</td>
@@ -64,6 +65,8 @@ function App() {
             srcDoc={generateInvoiceHTML(client, items)}
             style={{ width: '100%', height: '400px', border: '1px solid #ccc' }}
           />
+
+          
         </div>
       </div>
 

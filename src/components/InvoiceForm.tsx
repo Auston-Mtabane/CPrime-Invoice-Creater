@@ -4,6 +4,7 @@ import { ItemRow } from "./ItemRow";
 import { ItemForm } from "./ItemForm";
 
 type Item = {
+  index: number; // Optional for initial state
   name: string;
   quantity: number;
   amount: number;
@@ -41,6 +42,7 @@ export default function InvoiceForm({
   const addItem = () => {
     if (!item.name || !item.quantity || !item.amount) return;
     const newItem: Item = {
+      index: items.length, // Use the current length as the index
       name: item.name,
       quantity: Number(item.quantity),
       amount: Number(item.amount),
