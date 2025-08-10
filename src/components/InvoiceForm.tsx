@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ClientForm } from "./ClientForm";
 import { ItemRow } from "./ItemRow";
 import { ItemForm } from "./ItemForm";
@@ -10,10 +10,23 @@ type Item = {
   subtotal: number;
 };
 
-export default function InvoiceForm() {
-  const [client, setClient] = useState({ fname: "", femail: "", fphone: "" });
-  const [item, setItem] = useState({ name: "", quantity: "", amount: "" });
-  const [items, setItems] = useState<Item[]>([]);
+interface InvoiceFormProps {
+  client: { fname: string; femail: string; fphone: string };
+  setClient: React.Dispatch<
+    React.SetStateAction<{ fname: string; femail: string; fphone: string }>
+  >;
+  items: Item[];
+  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+}
+
+export default function InvoiceForm({
+  client,
+  setClient,
+  items,
+  setItems,
+}: InvoiceFormProps) {
+  // We'll need local state for the new item inputs
+  const [item, setItem] = React.useState({ name: "", quantity: "", amount: "" });
 
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,7 +44,7 @@ export default function InvoiceForm() {
       name: item.name,
       quantity: Number(item.quantity),
       amount: Number(item.amount),
-      subtotal: (Number(item.quantity) || 0) * (Number(item.amount) || 0),
+      subtotal: Number(item.quantity) * Number(item.amount),
     };
     setItems([...items, newItem]);
     setItem({ name: "", quantity: "", amount: "" });
@@ -43,21 +56,13 @@ export default function InvoiceForm() {
 
   const subtotal = (Number(item.quantity) || 0) * (Number(item.amount) || 0);
 
-  const handlePreview = (e: React.FormEvent) => {
-    e.preventDefault();
-    const invoiceData = { client, items };
-    const jsonString = JSON.stringify(invoiceData, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "invoice.json";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
-    <form onSubmit={handlePreview}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        addItem();
+      }}
+    >
       <p>Client Details</p>
       <ClientForm client={client} onChange={handleClientChange} />
 
@@ -90,9 +95,6 @@ export default function InvoiceForm() {
           subtotal={subtotal}
         />
       </div>
-
-      <br />
-      <button type="submit">Preview</button>
     </form>
   );
 }
