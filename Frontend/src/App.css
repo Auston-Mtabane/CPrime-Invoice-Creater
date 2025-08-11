@@ -102,6 +102,9 @@ iframe {
   border: 3px solid rgb(179, 156, 129);
   border-radius: 15px;
   margin-inline: 15px;
+  width: 95%;
+  min-height: 90%;
+  
 }
 
 .title {

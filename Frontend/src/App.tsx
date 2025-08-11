@@ -165,7 +165,7 @@ table {
           <iframe
             title='Invoice Preview'
             srcDoc={generateInvoiceHTML(client, items)}
-            style={{ width: '95%', height: '100%'  }}
+            
           />
 
           
