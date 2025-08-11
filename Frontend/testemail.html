@@ -73,6 +73,8 @@ table {
 }
 
 .container {
+   color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
   font-size: 0.8em;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -83,7 +85,10 @@ table {
     "paymentInfo paymentInfo"
     "footer footer";
 
+  background-color: #242424;
+
   gap: 5px;
+  
 }
 .clientInfo{grid-area: clientInfo;} 
 .compInfo{grid-area: compInfo;
@@ -113,7 +118,7 @@ padding: 2rem;}
     background-color: #f9f9f9;
   }
 }
-@media (max-width: 600px) {
+  @media (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
   }
@@ -140,7 +145,9 @@ padding: 2rem;}
     font-weight: bold;
   }
 }
-
+  #item-row {
+    background-color: #252525ff;
+    border-radius: 1em;}
 </style></head>
   <body>
     <div class="container">
@@ -152,12 +159,11 @@ padding: 2rem;}
       </div>
 
       <div class="compInfo">
-        <img src="public/cplogo.svg" alt style="width: 100px; height: auto;">
-        <p><strong>Company Name:</strong> ${companyName}</p>
-        <p><strong>Address:</strong> ${companyAddress}</p>
-        <p><strong>Email:</strong> ${companyEmail}</p>
-        <p><strong>Phone:</strong> ${companyPhone}</p>
-        <p><strong>Website:</strong> ${companyWebsite}</p>
+        <img src="cplogo.svg" alt style="width: 100px; height: auto;">
+        <p>${companyName}</p>
+        <p>${companyEmail}</p>
+        <p>${companyPhone}</p>
+        <p>${companyWebsite}</p>
 
       </div>
       <div class="invoiceInfo">
@@ -168,21 +174,23 @@ padding: 2rem;}
           <thead><tr><th>Item
                 No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
-            ${items.map((item:Item) => `
-            <tr>
-              <td>${item.index+1}</td>
-              <td>${item.name}</td>
-              <td>${item.quantity}</td>
-              <td>${item.amount.toFixed(2)}</td>
-              <td>${item.subtotal.toFixed(2)}</td>
-            </tr>`).join('')}
-            <tr>
-              <td colspan="4"
-                style="text-align: right;"><strong>Total:</strong></td>
-              <td>
-                <strong>${items.reduce((acc, item) => acc + item.subtotal,
-                  0).toFixed(2)}</strong>
-              </td>
+            ${items
+              .map(
+                (item: Item) => `
+            <tr id="item-row">
+              <td data-label="Item No#">${item.index + 1}</td>
+              <td data-label="Item">${item.name}</td>
+              <td data-label="Qty">${item.quantity}</td>
+              <td data-label="Amount">${item.amount.toFixed(2)}</td>
+              <td data-label="Subtotal">${item.subtotal.toFixed(2)}</td>
+            </tr>`
+              )
+              .join("")}
+                <tr>
+              <td colspan="4" style="text-align: right;"></td>
+              <td><strong>Total:</strong> <strong>${items
+                .reduce((acc, item) => acc + item.subtotal, 0)
+                .toFixed(2)}</strong></td>
             </tr>
           </tbody>
         </table>
