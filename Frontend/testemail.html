@@ -113,6 +113,34 @@ padding: 2rem;}
     background-color: #f9f9f9;
   }
 }
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none; /* hide headers on small screens */
+  }
+
+  tr {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #444;
+  }
+
+  td {
+    padding-left: 50%;
+    position: relative;
+    text-align: left;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1em;
+    font-weight: bold;
+  }
+}
+
 </style></head>
   <body>
     <div class="container">

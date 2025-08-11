@@ -1,6 +1,6 @@
-import './App.css'
-import InvoiceForm from './components/InvoiceForm'
-import { useState } from 'react'
+import "./App.css";
+import InvoiceForm from "./components/InvoiceForm";
+import { useState } from "react";
 
 interface Client {
   fname: string;
@@ -17,12 +17,11 @@ type Item = {
 };
 
 function App() {
-  const [client, setClient] = useState({ fname: '', femail: '', fphone: '' })
-  const [items, setItems] = useState<Item[]>([]) // type as needed
+  const [client, setClient] = useState({ fname: "", femail: "", fphone: "" });
+  const [items, setItems] = useState<Item[]>([]); // type as needed
 
   // Example company and invoice details (replace with your actual data or state as needed)
-  const companyName = "Your Company Name";
-  const companyAddress = "123 Main St, City, Country";
+  const companyName = "C.Prime_";
   const companyEmail = "info@yourcompany.com";
   const companyPhone = "+1234567890";
   const companyWebsite = "www.yourcompany.com";
@@ -31,7 +30,7 @@ function App() {
   const paymentStatus = "Pending";
 
   // This function will generate the HTML preview string (can move it outside App)
-const generateInvoiceHTML = (client:Client, items:Item[]) => `<html>
+  const generateInvoiceHTML = (client: Client, items: Item[]) => `<html>
   <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body {
   font-family:  "Plus Jakarta Sans", sans-serif;
@@ -116,7 +115,10 @@ table {
     "paymentInfo paymentInfo"
     "footer footer";
 
+  background-color: #1a1a1a;
+
   gap: 5px;
+  
 }
 .clientInfo{grid-area: clientInfo;} 
 .compInfo{grid-area: compInfo;
@@ -146,6 +148,36 @@ padding: 2rem;}
     background-color: #f9f9f9;
   }
 }
+  @media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none; /* hide headers on small screens */
+  }
+
+  tr {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #444;
+  }
+
+  td {
+    padding-left: 50%;
+    position: relative;
+    text-align: left;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1em;
+    font-weight: bold;
+  }
+}
+  #item-row {
+    background-color: #453838ff;
+    border-radius: 1em;}
 </style></head>
   <body>
     <div class="container">
@@ -158,11 +190,10 @@ padding: 2rem;}
 
       <div class="compInfo">
         <img src="cplogo.svg" alt style="width: 100px; height: auto;">
-        <p><strong>Company Name:</strong> ${companyName}</p>
-        <p><strong>Address:</strong> ${companyAddress}</p>
-        <p><strong>Email:</strong> ${companyEmail}</p>
-        <p><strong>Phone:</strong> ${companyPhone}</p>
-        <p><strong>Website:</strong> ${companyWebsite}</p>
+        <p>${companyName}</p>
+        <p>${companyEmail}</p>
+        <p>${companyPhone}</p>
+        <p>${companyWebsite}</p>
 
       </div>
       <div class="invoiceInfo">
@@ -173,21 +204,23 @@ padding: 2rem;}
           <thead><tr><th>Item
                 No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
-            ${items.map((item:Item) => `
-            <tr>
-              <td>${item.index+1}</td>
-              <td>${item.name}</td>
-              <td>${item.quantity}</td>
-              <td>${item.amount.toFixed(2)}</td>
-              <td>${item.subtotal.toFixed(2)}</td>
-            </tr>`).join('')}
-            <tr>
-              <td colspan="4"
-                style="text-align: right;"><strong>Total:</strong></td>
-              <td>
-                <strong>${items.reduce((acc, item) => acc + item.subtotal,
-                  0).toFixed(2)}</strong>
-              </td>
+            ${items
+              .map(
+                (item: Item) => `
+            <tr id="item-row">
+              <td data-label="Item No#">${item.index + 1}</td>
+              <td data-label="Item">${item.name}</td>
+              <td data-label="Qty">${item.quantity}</td>
+              <td data-label="Amount">${item.amount.toFixed(2)}</td>
+              <td data-label="Subtotal">${item.subtotal.toFixed(2)}</td>
+            </tr>`
+              )
+              .join("")}
+                <tr>
+              <td colspan="4" style="text-align: right;"></td>
+              <td><strong>Total:</strong> <strong>${items
+                .reduce((acc, item) => acc + item.subtotal, 0)
+                .toFixed(2)}</strong></td>
             </tr>
           </tbody>
         </table>
@@ -206,36 +239,35 @@ padding: 2rem;}
       </div>
 
     </body>
-  </html>`
-
+  </html>`;
 
   // send email function
   const handleSendEmail = async () => {
     if (!client.fname || !client.femail || !client.fphone) {
-      alert('Please fill in all client details before sending the email.')
-      return
+      alert("Please fill in all client details before sending the email.");
+      return;
     }
 
     console.log(items[-1]);
-    const htmlString = generateInvoiceHTML(client, items)
+    const htmlString = generateInvoiceHTML(client, items);
     try {
-      const response = await fetch('https://your-python-backend/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("https://your-python-backend/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ client, items, html: htmlString }),
-      })
-      if (response.ok) alert('Email sent!')
-      else alert('Email sending failed.')
+      });
+      if (response.ok) alert("Email sent!");
+      else alert("Email sending failed.");
     } catch (e) {
-      alert('Error sending email')
-      console.error(e)
+      alert("Error sending email");
+      console.error(e);
     }
-  }
+  };
 
   return (
     <>
-      <div id='container'>
-        <div id='form-section'>
+      <div id="container">
+        <div id="form-section">
           <InvoiceForm
             client={client}
             setClient={setClient}
@@ -244,20 +276,17 @@ padding: 2rem;}
           />
         </div>
 
-        <div id='preview-section'>
+        <div id="preview-section">
           <iframe
-            title='Invoice Preview'
+            title="Invoice Preview"
             srcDoc={generateInvoiceHTML(client, items)}
-            
           />
-
-          
         </div>
       </div>
 
       <button onClick={handleSendEmail}>Send Email</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
