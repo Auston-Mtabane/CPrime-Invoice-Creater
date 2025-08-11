@@ -115,7 +115,7 @@ table {
     "paymentInfo paymentInfo"
     "footer footer";
 
-  background-color: #1a1a1a;
+  background-color: #242424;
 
   gap: 5px;
   
@@ -176,7 +176,7 @@ padding: 2rem;}
   }
 }
   #item-row {
-    background-color: #453838ff;
+    background-color: #252525ff;
     border-radius: 1em;}
 </style></head>
   <body>
