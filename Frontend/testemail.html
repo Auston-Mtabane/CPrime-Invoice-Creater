@@ -1,8 +1,5 @@
 <html>
-
-    <head>
-        <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+  <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body {
   font-family:  "Plus Jakarta Sans", sans-serif;
   line-height: 1.5;
@@ -17,6 +14,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 1em;
+
+
 }
 
 a {
@@ -70,10 +69,37 @@ table, td ,th{
 table {
     width: 80vw;
     border-collapse: collapse;
-    margin: 3em;
-    margin-bottom: 1em;
     
 }
+
+.container {
+  font-size: 0.8em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: 
+    "clientInfo compInfo"
+    "invoiceInfo invoiceInfo"
+    "paymentInfo paymentInfo"
+    "footer footer";
+
+  gap: 5px;
+}
+.clientInfo{grid-area: clientInfo;} 
+.compInfo{grid-area: compInfo;
+  text-align: right;
+}
+.invoiceInfo{
+  grid-area: invoiceInfo;
+background-color: #1a1a1a;
+border-radius: 1em;
+padding: 3em;
+}
+.paymentInfo{grid-area: paymentInfo;}
+.footer{grid-area: footer;
+
+padding: 2rem;}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -87,30 +113,64 @@ table {
     background-color: #f9f9f9;
   }
 }
+</style></head>
+  <body>
+    <div class="container">
+      <div class="clientInfo">
+        <h1>Invoice for</h1>
+        <p><strong>Name:</strong> ${client.fname}</p>
+        <p><strong>Email:</strong> ${client.femail}</p>
+        <p><strong>Phone:</strong> ${client.fphone}</p>
+      </div>
 
-</style>
-    </head>
-    <body>
-        <h1>Invoice for Auston Mtabne</h1>
-        <p>Email: mtabane.auston@hmail.com</p>
-        <p>Phone: 0619610499</p>
+      <div class="compInfo">
+        <img src="public/cplogo.svg" alt style="width: 100px; height: auto;">
+        <p><strong>Company Name:</strong> ${companyName}</p>
+        <p><strong>Address:</strong> ${companyAddress}</p>
+        <p><strong>Email:</strong> ${companyEmail}</p>
+        <p><strong>Phone:</strong> ${companyPhone}</p>
+        <p><strong>Website:</strong> ${companyWebsite}</p>
+
+      </div>
+      <div class="invoiceInfo">
+        <p><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+
         <table>
-            <thead><tr><th>Item</th><th>Qty</th><th>Amount(R)</th><th>Subtotal(R)</th></tr></thead>
-            <tbody>
-
-                <tr>
-                    <td>Logo</td>
-                    <td>1</td>
-                    <td>650</td>
-                    <td>650</td>
-                </tr>
-                <tr>
-                    <td>Poster</td>
-                    <td>3</td>
-                    <td>300</td>
-                    <td>900</td>
-                </tr>
-            </tbody>
+          <thead><tr><th>Item
+                No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
+          <tbody>
+            ${items.map((item:Item) => `
+            <tr>
+              <td>${item.index+1}</td>
+              <td>${item.name}</td>
+              <td>${item.quantity}</td>
+              <td>${item.amount.toFixed(2)}</td>
+              <td>${item.subtotal.toFixed(2)}</td>
+            </tr>`).join('')}
+            <tr>
+              <td colspan="4"
+                style="text-align: right;"><strong>Total:</strong></td>
+              <td>
+                <strong>${items.reduce((acc, item) => acc + item.subtotal,
+                  0).toFixed(2)}</strong>
+              </td>
+            </tr>
+          </tbody>
         </table>
+      </div>
+
+      <div class="paymentInfo">
+        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+        <p><strong>Payment Status:</strong> ${paymentStatus}</p>
+      </div>
+
+      <div class="footer">
+        <p>Thank you for your business!</p>
+        <p>For any queries, please contact us at <a href="mailto:"></p>
+
+        </div>
+      </div>
+
     </body>
-</html>
+  </html>

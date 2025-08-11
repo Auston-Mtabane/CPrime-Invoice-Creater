@@ -103,7 +103,7 @@ iframe {
   border-radius: 15px;
   margin-inline: 15px;
   width: 95%;
-  min-height: 90%;
+  height: 100%;
   
 }
 

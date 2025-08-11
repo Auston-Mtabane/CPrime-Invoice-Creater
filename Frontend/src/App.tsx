@@ -20,11 +20,19 @@ function App() {
   const [client, setClient] = useState({ fname: '', femail: '', fphone: '' })
   const [items, setItems] = useState<Item[]>([]) // type as needed
 
-  // This function will generate the HTML preview string (can move it outside App)
-const generateInvoiceHTML = (client:Client, items:Item[]) => `
+  // Example company and invoice details (replace with your actual data or state as needed)
+  const companyName = "Your Company Name";
+  const companyAddress = "123 Main St, City, Country";
+  const companyEmail = "info@yourcompany.com";
+  const companyPhone = "+1234567890";
+  const companyWebsite = "www.yourcompany.com";
+  const invoiceNo = "INV-001";
+  const paymentMethod = "Bank Transfer";
+  const paymentStatus = "Pending";
 
-    <html>
-      <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+  // This function will generate the HTML preview string (can move it outside App)
+const generateInvoiceHTML = (client:Client, items:Item[]) => `<html>
+  <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body {
   font-family:  "Plus Jakarta Sans", sans-serif;
   line-height: 1.5;
@@ -94,10 +102,37 @@ table, td ,th{
 table {
     width: 80vw;
     border-collapse: collapse;
-    margin: 3em;
-    margin-bottom: 1em;
     
 }
+
+.container {
+  font-size: 0.8em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: 
+    "clientInfo compInfo"
+    "invoiceInfo invoiceInfo"
+    "paymentInfo paymentInfo"
+    "footer footer";
+
+  gap: 5px;
+}
+.clientInfo{grid-area: clientInfo;} 
+.compInfo{grid-area: compInfo;
+  text-align: right;
+}
+.invoiceInfo{
+  grid-area: invoiceInfo;
+background-color: #1a1a1a;
+border-radius: 1em;
+padding: 3em;
+}
+.paymentInfo{grid-area: paymentInfo;}
+.footer{grid-area: footer;
+
+padding: 2rem;}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -112,32 +147,67 @@ table {
   }
 }
 </style></head>
-      <body>
-        <h1>Invoice for</h1> 
+  <body>
+    <div class="container">
+      <div class="clientInfo">
+        <h1>Invoice for</h1>
         <p><strong>Name:</strong> ${client.fname}</p>
         <p><strong>Email:</strong> ${client.femail}</p>
         <p><strong>Phone:</strong> ${client.fphone}</p>
+      </div>
+
+      <div class="compInfo">
+        <img src="public/cplogo.svg" alt style="width: 100px; height: auto;">
+        <p><strong>Company Name:</strong> ${companyName}</p>
+        <p><strong>Address:</strong> ${companyAddress}</p>
+        <p><strong>Email:</strong> ${companyEmail}</p>
+        <p><strong>Phone:</strong> ${companyPhone}</p>
+        <p><strong>Website:</strong> ${companyWebsite}</p>
+
+      </div>
+      <div class="invoiceInfo">
+        <p><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+
         <table>
-          <thead><tr><th>Item No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
+          <thead><tr><th>Item
+                No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
             ${items.map((item:Item) => `
-              <tr>
-              <td>${item.index+1}</td>
-                <td>${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.amount.toFixed(2)}</td>
-                <td>${item.subtotal.toFixed(2)}</td>
-              </tr>`).join('')}
             <tr>
-              <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
+              <td>${item.index+1}</td>
+              <td>${item.name}</td>
+              <td>${item.quantity}</td>
+              <td>${item.amount.toFixed(2)}</td>
+              <td>${item.subtotal.toFixed(2)}</td>
+            </tr>`).join('')}
+            <tr>
+              <td colspan="4"
+                style="text-align: right;"><strong>Total:</strong></td>
               <td>
-                <strong>${items.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2)}</strong>
+                <strong>${items.reduce((acc, item) => acc + item.subtotal,
+                  0).toFixed(2)}</strong>
               </td>
             </tr>
           </tbody>
         </table>
-      </body>
-    </html>`
+      </div>
+
+      <div class="paymentInfo">
+        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+        <p><strong>Payment Status:</strong> ${paymentStatus}</p>
+      </div>
+
+      <div class="footer">
+        <p>Thank you for your business!</p>
+        <p>For any queries, please contact us at <a href="mailto:"></p>
+
+        </div>
+      </div>
+
+    </body>
+  </html>`
+
 
   // send email function
   const handleSendEmail = async () => {
