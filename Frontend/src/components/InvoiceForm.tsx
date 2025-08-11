@@ -65,11 +65,12 @@ export default function InvoiceForm({
         addItem();
       }}
     >
-      <p>Client Details</p>
+      
       <ClientForm client={client} onChange={handleClientChange} />
 
-      <p>Invoice/Quote Items</p>
+      
       <div className="rounded-div" id="invoice-items">
+        <p className="title"><strong>Invoice/Quote Items</strong></p>
         <div className="row-item">
           <p>Item Name/Description</p>
           <p>Quantity</p>

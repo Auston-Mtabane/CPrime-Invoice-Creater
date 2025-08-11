@@ -13,9 +13,10 @@
 
 .rounded-div{
   padding: 20px;
-  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
+  box-shadow: 0 5px 5px 0 rgb(30, 30, 30);
   border: 1px solid rgb(68, 68, 68);
   border-radius: 15px;
+  margin-bottom: 15px;
 }
 
 #client-details input {
@@ -93,4 +94,19 @@ input:focus {
 
 #invoice-items {
   font-size: 0.9rem;
+}
+
+iframe {
+  padding: 20px;
+  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
+  border: 3px solid rgb(179, 156, 129);
+  border-radius: 15px;
+  margin-inline: 15px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1em;
+  color: #ffc265;
 }

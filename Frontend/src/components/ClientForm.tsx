@@ -14,6 +14,7 @@ interface ClientFormProps {
 export function ClientForm({ client, onChange }: ClientFormProps) {
   return (
     <div className="rounded-div" id="client-details">
+      <p className="title"><strong>Client Details</strong></p>
       <label htmlFor="fname">Full Name:</label>
       <input
         type="text"

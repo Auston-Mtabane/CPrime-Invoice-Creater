@@ -38,6 +38,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 1em;
+
+
 }
 
 a {
@@ -163,7 +165,7 @@ table {
           <iframe
             title='Invoice Preview'
             srcDoc={generateInvoiceHTML(client, items)}
-            style={{ width: '95%', height: '90%',margin: '1em' }}
+            style={{ width: '95%', height: '100%'  }}
           />
 
           
