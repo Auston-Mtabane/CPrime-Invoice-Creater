@@ -157,7 +157,7 @@ padding: 2rem;}
       </div>
 
       <div class="compInfo">
-        <img src="public/cplogo.svg" alt style="width: 100px; height: auto;">
+        <img src="cplogo.svg" alt style="width: 100px; height: auto;">
         <p><strong>Company Name:</strong> ${companyName}</p>
         <p><strong>Address:</strong> ${companyAddress}</p>
         <p><strong>Email:</strong> ${companyEmail}</p>
