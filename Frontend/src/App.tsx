@@ -2,12 +2,26 @@ import './App.css'
 import InvoiceForm from './components/InvoiceForm'
 import { useState } from 'react'
 
+interface Client {
+  fname: string;
+  femail: string;
+  fphone: string;
+}
+
+type Item = {
+  index: number; // Optional for initial state
+  name: string;
+  quantity: number;
+  amount: number;
+  subtotal: number;
+};
+
 function App() {
   const [client, setClient] = useState({ fname: '', femail: '', fphone: '' })
-  const [items, setItems] = useState([]) // type as needed
+  const [items, setItems] = useState<Item[]>([]) // type as needed
 
   // This function will generate the HTML preview string (can move it outside App)
-  const generateInvoiceHTML = (client, items) => `
+const generateInvoiceHTML = (client:Client, items:Item[]) => `
     <html>
       <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body {
@@ -97,13 +111,13 @@ table {
 </style></head>
       <body>
         <h1>Invoice for</h1> 
-        <h4>Name: ${client.fname}</h4>
-        <h3>Email: ${client.femail}</h3>
-        <h3>Phone: ${client.fphone}</h3>
+        <p><strong>Name:</strong> ${client.fname}</p>
+        <p><strong>Email:</strong> ${client.femail}</p>
+        <p><strong>Phone:</strong> ${client.fphone}</p>
         <table>
           <thead><tr><th>Item No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
           <tbody>
-            ${items.map(item => `
+            ${items.map((item:Item) => `
               <tr>
               <td>${item.index+1}</td>
                 <td>${item.name}</td>
