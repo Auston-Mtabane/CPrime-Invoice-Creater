@@ -22,6 +22,7 @@ function App() {
 
   // This function will generate the HTML preview string (can move it outside App)
 const generateInvoiceHTML = (client:Client, items:Item[]) => `
+
     <html>
       <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 body {
@@ -127,6 +128,12 @@ table {
                 <td>${item.amount.toFixed(2)}</td>
                 <td>${item.subtotal.toFixed(2)}</td>
               </tr>`).join('')}
+            <tr>
+              <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
+              <td>
+                <strong>${items.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2)}</strong>
+              </td>
+            </tr>
           </tbody>
         </table>
       </body>
@@ -134,6 +141,12 @@ table {
 
   // send email function
   const handleSendEmail = async () => {
+    if (!client.fname || !client.femail || !client.fphone) {
+      alert('Please fill in all client details before sending the email.')
+      return
+    }
+
+    console.log(items[-1]);
     const htmlString = generateInvoiceHTML(client, items)
     try {
       const response = await fetch('https://your-python-backend/send-email', {
