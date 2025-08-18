@@ -22,224 +22,98 @@ function App() {
 
   // Example company and invoice details (replace with your actual data or state as needed)
   const companyName = "C.Prime_";
-  const companyEmail = "info@yourcompany.com";
-  const companyPhone = "+1234567890";
-  const companyWebsite = "www.yourcompany.com";
+  const companyEmail = "citymous.prime@gmail.com";
+  const companyPhone = "+27 61 961 0499";
+  const companyWebsite = "---";
   const invoiceNo = "INV-001";
-  const paymentMethod = "Bank Transfer";
+  const paymentMethod = "1655***";
   const paymentStatus = "Pending";
 
   // This function will generate the HTML preview string (can move it outside App)
-  const generateInvoiceHTML = (client: Client, items: Item[]) => `<html>
-  <head><style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-body {
-  font-family:  "Plus Jakarta Sans", sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+const generateInvoiceHTML = (client: Client, items: Item[]) => `
+<html>
+  <body style="font-family: Arial, sans-serif; line-height:1.5; font-weight:400; background-color:#242424; color:#ffffff; margin:0; padding:20px;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px; margin:0 auto; background-color:#242424; color:#ffffff;">
+      <tr>
+        <!-- Client Info -->
+        <td valign="top" style="padding:20px; width:50%;">
+          <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">Invoice for</h1>
+          <p style="margin:4px 0;"><strong>Name:</strong> ${client.fname}</p>
+          <p style="margin:4px 0;"><strong>Email:</strong> ${client.femail}</p>
+          <p style="margin:4px 0;"><strong>Phone:</strong> ${client.fphone}</p>
+        </td>
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+        <!-- Company Info -->
+        <td valign="top" align="right" style="padding:20px; width:50%;">
+          <img src="cplogo.svg" alt="Logo" style="width:100px; height:auto; display:block; margin-bottom:10px;">
+          <p style="margin:4px 0;">${companyName}</p>
+          <p style="margin:4px 0;">${companyEmail}</p>
+          <p style="margin:4px 0;">${companyPhone}</p>
+          <p style="margin:4px 0;">${companyWebsite}</p>
+        </td>
+      </tr>
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 1em;
+      <!-- Invoice Info -->
+      <tr>
+        <td colspan="2" style="padding:20px; background-color:#1a1a1a; border-radius:10px;">
+          <p style="margin:4px 0;"><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
+          <p style="margin:4px 0;"><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
 
-
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-table, td ,th{
-    
-    margin: 0; padding: 1em; 
-    font-family: "Plus Jakarta Sans", Arial, sans-serif;
-    line-height: 1.5;
-    border-bottom: 1px solid #464444;
-    
-  }
-  th {
-    font-weight: 600;
-    text-align: left;
-    border-right: 1px solid #0b0b0b;
-    background-color: #ff7700c3;
-    
-  }
-
-table {
-    width: 80vw;
-    border-collapse: collapse;
-    
-}
-
-.container {
-  font-size: 0.8em;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas: 
-    "clientInfo compInfo"
-    "invoiceInfo invoiceInfo"
-    "paymentInfo paymentInfo"
-    "footer footer";
-
-  background-color: #242424;
-
-  gap: 5px;
-  
-}
-.clientInfo{grid-area: clientInfo;} 
-.compInfo{grid-area: compInfo;
-  text-align: right;
-}
-.invoiceInfo{
-  grid-area: invoiceInfo;
-background-color: #1a1a1a;
-border-radius: 1em;
-padding: 3em;
-}
-.paymentInfo{grid-area: paymentInfo;}
-.footer{grid-area: footer;
-
-padding: 2rem;}
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-  @media (max-width: 600px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  thead {
-    display: none; /* hide headers on small screens */
-  }
-
-  tr {
-    margin-bottom: 1em;
-    border-bottom: 1px solid #444;
-  }
-
-  td {
-    padding-left: 50%;
-    position: relative;
-    text-align: left;
-  }
-
-  td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 1em;
-    font-weight: bold;
-  }
-}
-  #item-row {
-    background-color: #252525ff;
-    border-radius: 1em;}
-</style></head>
-  <body>
-    <div class="container">
-      <div class="clientInfo">
-        <h1>Invoice for</h1>
-        <p><strong>Name:</strong> ${client.fname}</p>
-        <p><strong>Email:</strong> ${client.femail}</p>
-        <p><strong>Phone:</strong> ${client.fphone}</p>
-      </div>
-
-      <div class="compInfo">
-        <img src="cplogo.svg" alt style="width: 100px; height: auto;">
-        <p>${companyName}</p>
-        <p>${companyEmail}</p>
-        <p>${companyPhone}</p>
-        <p>${companyWebsite}</p>
-
-      </div>
-      <div class="invoiceInfo">
-        <p><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
-        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-
-        <table>
-          <thead><tr><th>Item
-                No#</th><th>Item</th><th>Qty</th><th>Amount</th><th>Subtotal</th></tr></thead>
-          <tbody>
-            ${items
-              .map(
-                (item: Item) => `
-            <tr id="item-row">
-              <td data-label="Item No#">${item.index + 1}</td>
-              <td data-label="Item">${item.name}</td>
-              <td data-label="Qty">${item.quantity}</td>
-              <td data-label="Amount">${item.amount.toFixed(2)}</td>
-              <td data-label="Subtotal">${item.subtotal.toFixed(2)}</td>
-            </tr>`
-              )
-              .join("")}
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:15px; border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="padding:10px; text-align:left; font-weight:600; background-color:#ff7700c3; border:1px solid #0b0b0b;">Item No#</th>
+                <th style="padding:10px; text-align:left; font-weight:600; background-color:#ff7700c3; border:1px solid #0b0b0b;">Item</th>
+                <th style="padding:10px; text-align:left; font-weight:600; background-color:#ff7700c3; border:1px solid #0b0b0b;">Qty</th>
+                <th style="padding:10px; text-align:left; font-weight:600; background-color:#ff7700c3; border:1px solid #0b0b0b;">Amount</th>
+                <th style="padding:10px; text-align:left; font-weight:600; background-color:#ff7700c3; border:1px solid #0b0b0b;">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${items.map((item: Item) => `
                 <tr>
-              <td colspan="4" style="text-align: right;"></td>
-              <td><strong>Total:</strong> <strong>${items
-                .reduce((acc, item) => acc + item.subtotal, 0)
-                .toFixed(2)}</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.index + 1}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.name}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.quantity}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.amount.toFixed(2)}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.subtotal.toFixed(2)}</td>
+                </tr>
+              `).join("")}
+              <tr>
+                <td colspan="4" align="right" style="padding:10px; border:1px solid #464444; font-weight:bold;">Total:</td>
+                <td style="padding:10px; border:1px solid #464444; font-weight:bold;">
+                  ${items.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
 
-      <div class="paymentInfo">
-        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
-        <p><strong>Payment Status:</strong> ${paymentStatus}</p>
-      </div>
+      <!-- Payment Info -->
+      <tr>
+        <td colspan="2" style="padding:20px;">
+          <p style="margin:4px 0;"><strong>Payment Method:</strong> ${paymentMethod}</p>
+          <p style="margin:4px 0;"><strong>Payment Status:</strong> ${paymentStatus}</p>
+        </td>
+      </tr>
 
-      <div class="footer">
-        <p>Thank you for your business!</p>
-        <p>For any queries, please contact us at <a href="mailto:"></p>
+      <!-- Footer -->
+      <tr>
+        <td colspan="2" align="center" style="padding:20px;">
+          <p style="margin:4px 0;">Thank you for your business!</p>
+          <p style="margin:4px 0;">For any queries, please contact us at 
+            <a href="mailto:${companyEmail}" style="color:#646cff; text-decoration:none;">${companyEmail}</a>
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+`;
 
-        </div>
-      </div>
 
-    </body>
-  </html>`;
+
 
   // send email function
   const handleSendEmail = async () => {
