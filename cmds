@@ -1,0 +1,13 @@
+mvn install:install-file \
+  -Dfile=libs/eodsql.jar \
+  -DgroupId=net.lemnik \
+  -DartifactId=eodsql \
+  -Dversion=2.0.0 \
+  -Dpackaging=jar
+
+
+<dependency>
+  <groupId>net.lemnik</groupId>
+  <artifactId>eodsql</artifactId>
+  <version>2.0.0</version>
+</dependency>
