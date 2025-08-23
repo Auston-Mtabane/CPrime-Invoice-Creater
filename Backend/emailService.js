@@ -20,7 +20,6 @@ export async function sendEmail(to, subject, htmle) {
     subject,
     html: htmle,
   };
-  console.log("e: ", htmle);
 
   try {
     await transporter.sendMail(mailOptions);

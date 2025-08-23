@@ -45,7 +45,7 @@ function App() {
 
         <!-- Company Info -->
         <td valign="top" align="right" style="padding:20px; width:50%;">
-          <img src="cplogo.svg" alt="Logo" style="width:100px; height:auto; display:block; margin-bottom:10px;">
+          <img src="https://i.postimg.cc/RVPtW7Gg/cplogo.png" style="width:auto; height:auto; display:block; margin-bottom:10px;">
           <p style="margin:4px 0;">${companyName}</p>
           <p style="margin:4px 0;">${companyEmail}</p>
           <p style="margin:4px 0;">${companyPhone}</p>
@@ -57,7 +57,7 @@ function App() {
       <tr>
         <td colspan="2" style="padding:20px; background-color:#1a1a1a; border-radius:10px;">
           <p style="margin:4px 0;"><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
-          <p style="margin:4px 0;"><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+          <p style="margin:4px 0;"><strong>Date:</strong> ${new Date().getDate().toString() +" "+ new Date().toLocaleString('default', { month: 'short' }).toUpperCase() +" "+ new Date().getFullYear()}</p>
 
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:15px; border-collapse:collapse;">
             <thead>
@@ -116,7 +116,7 @@ function App() {
 
       <!-- Footer -->
       <tr>
-        <td colspan="2" align="center" style="padding:20px;">
+        <td colspan="2" align="center" style="padding:20px;"  background-color:#1a1a1a;>
           <p style="margin:4px 0;">Thank you for your business!</p>
           <p style="margin:4px 0;">For any queries, please contact us at 
             <a href="mailto:${companyEmail}" style="color:#646cff; text-decoration:none;">${companyEmail}</a>
