@@ -30,7 +30,7 @@ function App() {
   const paymentStatus = "Pending";
 
   // This function will generate the HTML preview string (can move it outside App)
-const generateInvoiceHTML = (client: Client, items: Item[]) => `
+  const generateInvoiceHTML = (client: Client, items: Item[]) => `
 <html>
   <body style="font-family: Arial, sans-serif; line-height:1.5; font-weight:400; background-color:#242424; color:#ffffff; margin:0; padding:20px;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px; margin:0 auto; background-color:#242424; color:#ffffff;">
@@ -70,19 +70,35 @@ const generateInvoiceHTML = (client: Client, items: Item[]) => `
               </tr>
             </thead>
             <tbody>
-              ${items.map((item: Item) => `
+              ${items
+                .map(
+                  (item: Item) => `
                 <tr>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.index + 1}</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.name}</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.quantity}</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.amount.toFixed(2)}</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.subtotal.toFixed(2)}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${
+                    item.index + 1
+                  }</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${
+                    item.name
+                  }</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${
+                    item.quantity
+                  }</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.amount.toFixed(
+                    2
+                  )}</td>
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.subtotal.toFixed(
+                    2
+                  )}</td>
                 </tr>
-              `).join("")}
+              `
+                )
+                .join("")}
               <tr>
                 <td colspan="4" align="right" style="padding:10px; border:1px solid #464444; font-weight:bold;">Total:</td>
                 <td style="padding:10px; border:1px solid #464444; font-weight:bold;">
-                  ${items.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2)}
+                  ${items
+                    .reduce((acc, item) => acc + item.subtotal, 0)
+                    .toFixed(2)}
                 </td>
               </tr>
             </tbody>
@@ -112,9 +128,6 @@ const generateInvoiceHTML = (client: Client, items: Item[]) => `
 </html>
 `;
 
-
-
-
   // send email function
   const handleSendEmail = async () => {
     if (!client.fname || !client.femail || !client.fphone) {
@@ -122,10 +135,10 @@ const generateInvoiceHTML = (client: Client, items: Item[]) => `
       return;
     }
 
-    console.log(items[-1]);
+    console.log(items[items.length - 1]);
     const htmlString = generateInvoiceHTML(client, items);
     try {
-      const response = await fetch("https://your-python-backend/send-email", {
+      const response = await fetch("http://localhost:3001/api/invoice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ client, items, html: htmlString }),
