@@ -90,10 +90,10 @@ const InvoiceQuote = () => {
                   <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${
                     item.quantity
                   }</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.amount.toFixed(
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">R ${item.amount.toFixed(
                     2
                   )}</td>
-                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">${item.subtotal.toFixed(
+                  <td style="padding:10px; border:1px solid #464444; background-color:#252525;">R ${item.subtotal.toFixed(
                     2
                   )}</td>
                 </tr>
@@ -103,7 +103,7 @@ const InvoiceQuote = () => {
               <tr>
                 <td colspan="4" align="right" style="padding:10px; border:1px solid #464444; font-weight:bold;">Total:</td>
                 <td style="padding:10px; border:1px solid #464444; font-weight:bold;">
-                  ${items
+                  R ${items
                     .reduce((acc, item) => acc + item.subtotal, 0)
                     .toFixed(2)}
                 </td>

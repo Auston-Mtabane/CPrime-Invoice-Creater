@@ -6,7 +6,6 @@ type Props = {
 const DocumentTypeInput = ({ docType, setDocType }: Props) => {
   return (
     <div>
-      <label htmlFor="docType">Document Type: </label>
       <select
         id="docType"
         value={docType}

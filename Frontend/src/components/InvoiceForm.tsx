@@ -19,7 +19,7 @@ interface InvoiceFormProps {
   >;
   items: Item[];
   setItems: React.Dispatch<React.SetStateAction<Item[]>>;
-  docType: "invoice" | "quote";   
+  docType: "invoice" | "quote";
   setDocType: React.Dispatch<React.SetStateAction<"invoice" | "quote">>;
 }
 
@@ -29,10 +29,14 @@ export default function InvoiceForm({
   items,
   setItems,
   docType,
-  setDocType
+  setDocType,
 }: InvoiceFormProps) {
   // We'll need local state for the new item inputs
-  const [item, setItem] = React.useState({ name: "", quantity: "", amount: "" });
+  const [item, setItem] = React.useState({
+    name: "",
+    quantity: "",
+    amount: "",
+  });
 
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -70,18 +74,21 @@ export default function InvoiceForm({
         addItem();
       }}
     >
-      
       <ClientForm client={client} onChange={handleClientChange} />
 
-      
       <div className="rounded-div" id="invoice-items">
-        <p className="title"><strong>Invoice/Quote Items</strong></p>
-        <DocumentTypeInput docType={docType} setDocType={setDocType}/>
+        <div className="title">
+          <DocumentTypeInput docType={docType} setDocType={setDocType} />
+           <p >
+            <strong>Items</strong>
+          </p>
+        </div>
+
         <div className="row-item">
           <p>Item Name/Description</p>
-          <p>Quantity</p>
+          <p>Qty</p>
           <p>Amount (R)</p>
-          <p>Sub Total</p>
+          <p>Sub.Tot (R)</p>
         </div>
 
         {items.map((it, idx) => (

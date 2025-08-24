@@ -116,12 +116,28 @@ iframe {
 }
 
 .title {
+  display: flex;
+  align-items: center;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1em;
   color: #ffffff;
   border-bottom: 1px solid #3e3e3e;
 }
+.title select{
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-inline: 1em;
+  border: none;
+  background-color: #343434;
+  padding: 0.3em 0.6em;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
 #main {
   display: grid;
@@ -169,5 +185,7 @@ iframe {
   color: inherit;          /* use parent color instead of default blue */
   text-decoration: none;   /* removes underline */
 }
+
+
 
 
