@@ -1,7 +1,6 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0 ;
   /* text-align: center; */
 }
 
@@ -112,4 +111,18 @@ iframe {
   font-weight: bold;
   margin-bottom: 1em;
   color: #ffc265;
+}
+
+#main{
+  display: grid;
+  grid-template-columns: 15% 85%;
+  gap: 10px;
+
+}
+.sidenav{
+  background-color: #1c1c1c;
+  height: 100vh;
+  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
+  border: 3px solid rgb(179, 156, 129);
+  border-radius: 15px;
 }
