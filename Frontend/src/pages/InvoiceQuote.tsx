@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import InvoiceForm from "../components/InvoiceForm";
 import { useState } from "react";
+import companyDetails from "../data/companyDetails.json";
 
 interface Client {
   fname: string;
@@ -21,10 +22,10 @@ const InvoiceQuote = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [docType, setDocType] = useState<"invoice" | "quote">("invoice");
 
-  const companyName = "C.Prime_";
-  const companyEmail = "citymous.prime@gmail.com";
-  const companyPhone = "+27 61 961 0499";
-  const companyWebsite = "---";
+  const companyName = companyDetails.name;
+  const companyEmail = companyDetails.email;
+  const companyPhone = companyDetails.phone;
+  const companyWebsite = companyDetails.website;
   const invoiceNo = "INV-001";
   const paymentMethod = "1655***";
   const paymentStatus = "Pending";
@@ -115,9 +116,36 @@ const InvoiceQuote = () => {
 
       <!-- Payment Info -->
       <tr>
+        
         <td colspan="2" style="padding:20px;">
-          <p style="margin:4px 0;"><strong>Payment Method:</strong> ${paymentMethod}</p>
-          <p style="margin:4px 0;"><strong>Payment Status:</strong> ${paymentStatus}</p>
+<h3>Payment Details:</h3>
+<table style="border-collapse: collapse; width: 100%; max-width: 500px; font-size: .7em;">
+  <tr>
+    <td style="padding: 6px; "><strong>Bank Name:</strong></td>
+    <td style="padding: 6px; ">
+      ${companyDetails.bacnkDetails.bankName}
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 6px; "><strong>Account Holder:</strong></td>
+    <td style="padding: 6px; ">
+      ${companyDetails.bacnkDetails.accountHolder}
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 6px; "><strong>Account Number:</strong></td>
+    <td style="padding: 6px; ">
+      ${companyDetails.bacnkDetails.accountNumber}
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 6px; "><strong>Phone Number:</strong></td>
+    <td style="padding: 6px; ">
+      ${companyDetails.bacnkDetails.phoneNumber}
+    </td>
+  </tr>
+</table>
+
         </td>
       </tr>
 
