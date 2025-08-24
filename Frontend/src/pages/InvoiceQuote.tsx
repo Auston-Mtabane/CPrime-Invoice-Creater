@@ -9,7 +9,7 @@ interface Client {
 }
 
 type Item = {
-  index: number; // Optional for initial state
+  index: number;
   name: string;
   quantity: number;
   amount: number;
@@ -18,9 +18,9 @@ type Item = {
 
 const InvoiceQuote = () => {
   const [client, setClient] = useState({ fname: "", femail: "", fphone: "" });
-  const [items, setItems] = useState<Item[]>([]); // type as needed
+  const [items, setItems] = useState<Item[]>([]);
+  const [docType, setDocType] = useState<"invoice" | "quote">("invoice");
 
-  // Example company and invoice details (replace with your actual data or state as needed)
   const companyName = "C.Prime_";
   const companyEmail = "citymous.prime@gmail.com";
   const companyPhone = "+27 61 961 0499";
@@ -29,7 +29,6 @@ const InvoiceQuote = () => {
   const paymentMethod = "1655***";
   const paymentStatus = "Pending";
 
-  // This function will generate the HTML preview string (can move it outside App)
   const generateInvoiceHTML = (client: Client, items: Item[]) => `
 <html>
   <body style="font-family: Arial, sans-serif; line-height:1.5; font-weight:400; background-color:#242424; color:#ffffff; margin:0; padding:20px;">
@@ -37,7 +36,7 @@ const InvoiceQuote = () => {
       <tr>
         <!-- Client Info -->
         <td valign="top" style="padding:20px; width:50%;">
-          <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">Invoice for</h1>
+          <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">${docType == 'invoice' ? 'Invoice':"Quote"} for</h1>
           <p style="margin:4px 0;"><strong>Name:</strong> ${client.fname}</p>
           <p style="margin:4px 0;"><strong>Email:</strong> ${client.femail}</p>
           <p style="margin:4px 0;"><strong>Phone:</strong> ${client.fphone}</p>
@@ -57,7 +56,15 @@ const InvoiceQuote = () => {
       <tr>
         <td colspan="2" style="padding:20px; background-color:#1a1a1a; border-radius:10px;">
           <p style="margin:4px 0;"><strong>Invoice/Quote No#:</strong> ${invoiceNo}</p>
-          <p style="margin:4px 0;"><strong>Date:</strong> ${new Date().getDate().toString() +" "+ new Date().toLocaleString('default', { month: 'short' }).toUpperCase() +" "+ new Date().getFullYear()}</p>
+          <p style="margin:4px 0;"><strong>Date:</strong> ${
+            new Date().getDate().toString() +
+            " " +
+            new Date()
+              .toLocaleString("default", { month: "short" })
+              .toUpperCase() +
+            " " +
+            new Date().getFullYear()
+          }</p>
 
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:15px; border-collapse:collapse;">
             <thead>
@@ -153,30 +160,30 @@ const InvoiceQuote = () => {
 
   return (
     <>
-      <div className="page"> 
-      <div id="container">
-        <div id="form-section">
-          <InvoiceForm
-            client={client}
-            setClient={setClient}
-            items={items}
-            setItems={setItems}
-          />
-        </div>
+      <div className="page">
+        <div id="container">
+          <div id="form-section">
+            <InvoiceForm
+              client={client}
+              setClient={setClient}
+              items={items}
+              setItems={setItems}
+              docType={docType}
+            setDocType={setDocType}
+            />
+          </div>
 
-        <div id="preview-section">
-          <iframe
-            title="Invoice Preview"
-            srcDoc={generateInvoiceHTML(client, items)}
-          />
+          <div id="preview-section">
+            <iframe
+              title="Invoice Preview"
+              srcDoc={generateInvoiceHTML(client, items)}
+            />
+          </div>
+          <button onClick={handleSendEmail}>Send Email</button>
         </div>
-        <button onClick={handleSendEmail}>Send Email</button>
-      </div>
-
-      
       </div>
     </>
   );
-}
+};
 
 export default InvoiceQuote;

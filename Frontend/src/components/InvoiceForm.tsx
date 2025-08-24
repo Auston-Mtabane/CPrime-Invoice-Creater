@@ -2,6 +2,7 @@ import React from "react";
 import { ClientForm } from "./ClientForm";
 import { ItemRow } from "./ItemRow";
 import { ItemForm } from "./ItemForm";
+import DocumentTypeInput from "./DocumentTypeInput";
 
 type Item = {
   index: number; // Optional for initial state
@@ -18,6 +19,8 @@ interface InvoiceFormProps {
   >;
   items: Item[];
   setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+  docType: "invoice" | "quote";   
+  setDocType: React.Dispatch<React.SetStateAction<"invoice" | "quote">>;
 }
 
 export default function InvoiceForm({
@@ -25,6 +28,8 @@ export default function InvoiceForm({
   setClient,
   items,
   setItems,
+  docType,
+  setDocType
 }: InvoiceFormProps) {
   // We'll need local state for the new item inputs
   const [item, setItem] = React.useState({ name: "", quantity: "", amount: "" });
@@ -71,6 +76,7 @@ export default function InvoiceForm({
       
       <div className="rounded-div" id="invoice-items">
         <p className="title"><strong>Invoice/Quote Items</strong></p>
+        <DocumentTypeInput docType={docType} setDocType={setDocType}/>
         <div className="row-item">
           <p>Item Name/Description</p>
           <p>Quantity</p>
