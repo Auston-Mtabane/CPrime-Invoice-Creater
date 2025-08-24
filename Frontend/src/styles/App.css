@@ -11,9 +11,9 @@
 }
 
 .rounded-div {
-  padding: 20px;
-  box-shadow: 0 5px 5px 0 rgb(30, 30, 30);
-  border: 1px solid rgb(68, 68, 68);
+  font-size: .8rem;
+  background-color: #242424;
+  padding: 2em;
   border-radius: 15px;
   margin-bottom: 15px;
 }
@@ -21,25 +21,31 @@
 #client-details input {
   width: 100%;
   padding: 0.5em;
+  padding-inline: 1em;
   font-size: 1em;
   font-family: inherit;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
   box-sizing: border-box;
 }
+#client-details input:focus {
 
+  border: 1px solid #ccc;
+
+}
 input {
+  background-color: #383838;
 
   padding: 0.5em;
   font-size: 1em;
   font-family: inherit;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
   box-sizing: border-box;
 }
 
 input:focus {
-  border-color: #ff9e0c;
+  border: 1px solid #ccc;
   outline: none;
 }
 
@@ -100,9 +106,8 @@ input:focus {
 }
 
 iframe {
-
-  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
-  border: 3px solid rgb(179, 156, 129);
+  border: none;
+  scroll-padding-block: 12px;
   border-radius: 15px;
   margin-inline: 15px;
   width: 95%;
@@ -114,7 +119,8 @@ iframe {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1em;
-  color: #ffc265;
+  color: #ffffff;
+  border-bottom: 1px solid #3e3e3e;
 }
 
 #main {
@@ -125,10 +131,13 @@ iframe {
 }
 
 .sidenav {
-
-  background-color: #1c1c1c;
+ 
+  font-size: .9em;
+  background-color: #242424;
   height: 100vh;
-  box-shadow: 0 5px 5px 0 rgb(58, 58, 58);
+  box-shadow: 0 5px 5px 0 rgb(22, 22, 22);
+  border-radius: 16px;
+
   
 
 
@@ -144,13 +153,24 @@ iframe {
 }
 
 .sidenav div{
+  align-content: center;
+  align-items: center ;
   display: flex;
-  padding: 7px;
-  border-bottom: 1px solid #4f4f4f;
+  padding-inline: 7px;
+}
+.sidenav div:hover{
+  background-color: #3c3c3c;
+  scale: 1.05;
 }
 .sidenav img{
   display: flex;
-  padding: 16px;
-  width: 24px;
-  height: 24px;
+  padding-inline: 16px;
+  width: 20px;
+  height: 20px;
 }
+.sidenav a {
+  color: inherit;          /* use parent color instead of default blue */
+  text-decoration: none;   /* removes underline */
+}
+
+

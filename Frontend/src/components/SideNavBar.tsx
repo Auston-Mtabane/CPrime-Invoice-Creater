@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const SideNavBar = () => {
   return (
     <div className="sidenav">
-      <img src="/cplogo.svg" alt="logo" style={{ width: "50%", padding: 15 }} />
+      <img src="/cplogo.svg" alt="logo" style={{ width: "50%", paddingTop: 20,paddingBottom: 20,paddingInline: 0 }} />
       <nav>
         <ul>
           <li>
