@@ -27,8 +27,7 @@ const InvoiceQuote = () => {
   const companyPhone = companyDetails.phone;
   const companyWebsite = companyDetails.website;
   const invoiceNo = "INV-001";
-  const paymentMethod = "1655***";
-  const paymentStatus = "Pending";
+
 
   const generateInvoiceHTML = (client: Client, items: Item[]) => `
 <html>

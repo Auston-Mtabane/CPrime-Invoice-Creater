@@ -1,8 +1,12 @@
+import ProfileInfo from "../components/ProfileInfo";
+
 const Settings = () => {
 return (
         <div className="page">
-            <h2>Settings</h2>
-            <p>Welcome</p>
+            <ProfileInfo />
+            <button>
+                Edit Profile
+            </button>
         </div>
     );
 }
