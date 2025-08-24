@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import SideNavBar from "./components/SideNavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import InvoiceQuote from "./pages/InvoiceQuote";

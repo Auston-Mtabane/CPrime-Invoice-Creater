@@ -1,4 +1,4 @@
-import "../App.css";
+import "../styles/App.css";
 import InvoiceForm from "../components/InvoiceForm";
 import { useState } from "react";
 
