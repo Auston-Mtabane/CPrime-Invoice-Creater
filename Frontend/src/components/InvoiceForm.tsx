@@ -5,7 +5,7 @@ import { ItemForm } from "./ItemForm";
 import DocumentTypeInput from "./DocumentTypeInput";
 
 type Item = {
-  index: number; // Optional for initial state
+  index: number; 
   name: string;
   quantity: number;
   amount: number;
@@ -31,7 +31,6 @@ export default function InvoiceForm({
   docType,
   setDocType,
 }: InvoiceFormProps) {
-  // We'll need local state for the new item inputs
   const [item, setItem] = React.useState({
     name: "",
     quantity: "",
@@ -51,7 +50,7 @@ export default function InvoiceForm({
   const addItem = () => {
     if (!item.name || !item.quantity || !item.amount) return;
     const newItem: Item = {
-      index: items.length, // Use the current length as the index
+      index: items.length, 
       name: item.name,
       quantity: Number(item.quantity),
       amount: Number(item.amount),
