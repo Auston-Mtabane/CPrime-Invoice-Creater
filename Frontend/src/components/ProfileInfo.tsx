@@ -19,7 +19,7 @@ function ProfileInfo( {mode} : SettingsPageProps) {
   const [accountNumber,setAccountNumber] = useState(companyDetails.bacnkDetails.accountNumber);
   const [bankPhoneNumber,setPhoneNumber] = useState(companyDetails.bacnkDetails.phoneNumber);
 
-
+  
 
   return (
     <>
@@ -37,7 +37,7 @@ function ProfileInfo( {mode} : SettingsPageProps) {
         <label htmlFor="name">Phone:</label>
         <input  type ="text"  value={phone} onChange={(e)=>setPhone(e.target.value)} readOnly={!IsEditable} />
 
-        <label htmlFor="name">Website:</label>
+        <label htmlFor="name">Website: </label>
         <input  type ="text"  value={website} onChange={(e)=>setWebsite(e.target.value)} readOnly={!IsEditable} />
     </div>
 

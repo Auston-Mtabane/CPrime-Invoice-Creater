@@ -46,6 +46,11 @@
   border: 1px solid #3e3e3e;
 
 }
+
+.rounded-div2 input:not(:read-only):focus {
+  border: 1px solid #ff9838;
+}
+
 #client-details{
   display: flex;
   flex-direction: column;

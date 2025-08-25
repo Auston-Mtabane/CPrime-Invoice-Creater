@@ -4,7 +4,7 @@ import { useState } from "react";
 type Mode = "edit" | "save";
 
 const Settings = () => {
-  const [mode, setMode] = useState<Mode>("save");
+  const [mode, setMode] = useState<Mode>("edit");
 
   const changeMode = () => {
     setMode(mode == "save" ? "edit":"save");
