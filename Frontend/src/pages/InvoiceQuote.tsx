@@ -28,7 +28,6 @@ const InvoiceQuote = () => {
   const companyWebsite = companyDetails.website;
   const invoiceNo = "INV-001";
 
-
   const generateInvoiceHTML = (client: Client, items: Item[]) => `
 <html>
   <body style="font-family: Arial, sans-serif; line-height:1.5; font-weight:400; background-color:#242424; color:#ffffff; margin:0; padding:20px;">
@@ -36,7 +35,9 @@ const InvoiceQuote = () => {
       <tr>
         <!-- Client Info -->
         <td valign="top" style="padding:20px; width:50%;">
-          <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">${docType == 'invoice' ? 'Invoice':"Quote"} for</h1>
+          <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">${
+            docType == "invoice" ? "Invoice" : "Quote"
+          } for</h1>
           <p style="margin:4px 0;"><strong>Name:</strong> ${client.fname}</p>
           <p style="margin:4px 0;"><strong>Email:</strong> ${client.femail}</p>
           <p style="margin:4px 0;"><strong>Phone:</strong> ${client.fphone}</p>
@@ -44,7 +45,7 @@ const InvoiceQuote = () => {
 
         <!-- Company Info -->
         <td valign="top" align="right" style="padding:20px; width:50%;">
-          <img src="https://i.postimg.cc/RVPtW7Gg/cplogo.png" style="width:auto; height:auto; display:block; margin-bottom:10px;">
+          <img src="https://i.imgur.com/2BQDkwU.png" style="width:auto; height:auto; display:block; margin-bottom:10px;">
           <p style="margin:4px 0;">${companyName}</p>
           <p style="margin:4px 0;">${companyEmail}</p>
           <p style="margin:4px 0;">${companyPhone}</p>
@@ -196,7 +197,7 @@ const InvoiceQuote = () => {
               items={items}
               setItems={setItems}
               docType={docType}
-            setDocType={setDocType}
+              setDocType={setDocType}
             />
           </div>
 
