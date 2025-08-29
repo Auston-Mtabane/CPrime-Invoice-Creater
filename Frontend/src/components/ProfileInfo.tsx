@@ -1,66 +1,212 @@
-import { useState } from "react";
-import companyDetails from "../data/companyDetails.json";
+import { useEffect, useState } from "react";
 
+interface CompanyInfo {
+  name: string;
+  email: string;
+  phone: string;
+  website: string;
+  bankDetails: {
+    bankName: string;
+    accountNumber: string;
+    accountHolder: string;
+    phoneNumber: string;
+  };
+}
 
 type Mode = "edit" | "save";
+
 interface SettingsPageProps {
-  mode : Mode,
-};
+  mode: Mode;
+}
 
-function ProfileInfo( {mode} : SettingsPageProps) {
-  var IsEditable = mode === "save";
-  const [name,setName] = useState(companyDetails.name);
-  const [phone,setPhone] = useState(companyDetails.phone);
-  const [email,setEmail] = useState(companyDetails.email);
-  const [website,setWebsite] = useState(companyDetails.website);
+function isFilled(companyDetails: CompanyInfo) : boolean {
+  return (
+    companyDetails.name !== "" &&
+    companyDetails.email !== "" &&
+    companyDetails.phone !== "" &&
+    companyDetails.website !== "" &&
+    companyDetails.bankDetails.bankName !== "" && 
+    companyDetails.bankDetails.accountNumber !== "" &&
+    companyDetails.bankDetails.accountHolder !== "" &&
+    companyDetails.bankDetails.phoneNumber !== ""
+  );
+}
 
-  const [bankName,setBankName] = useState(companyDetails.bacnkDetails.bankName);
-  const [accountHolder,setAccountHolder] = useState(companyDetails.bacnkDetails.accountHolder);
-  const [accountNumber,setAccountNumber] = useState(companyDetails.bacnkDetails.accountNumber);
-  const [bankPhoneNumber,setPhoneNumber] = useState(companyDetails.bacnkDetails.phoneNumber);
+function ProfileInfo({ mode }: SettingsPageProps) {
+  const isEditable = mode === "save";
 
-  
+  const [companyDetails, setCompanyDetails] = useState<CompanyInfo>({
+    name: "",
+    email: "",
+    phone: "",
+    website: "",
+    bankDetails: {
+      bankName: "",
+      accountNumber: "",
+      accountHolder: "",
+      phoneNumber: "",
+    },
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:3001/settings/data");
+        if (response.ok) {
+          console.log("Settings data fetched");
+          const data = await response.json();
+          setCompanyDetails(data);
+        } else {
+          alert("Could not fetch settings data");
+        }
+      } catch (e) {
+        alert("Error fetching settings data");
+        console.error(e);
+      }
+    }
+
+    fetchData();
+  }, []);
+  useEffect(() => {
+    if (mode === "edit" && isFilled(companyDetails)) {
+      async function saveData() {
+        try {
+          const response = await fetch("http://localhost:3001/settings/update-data", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(companyDetails),
+          });
+          if (response.ok) {
+            console.log("Settings data saved");
+          } else {
+            alert("Could not save settings data");
+          }
+        } catch (e) {
+          alert("Error saving settings data");
+          console.error(e);
+        }
+      }
+
+      saveData();
+    }
+  }, [mode]);
 
   return (
     <>
-    <div className="rounded-div2">
-        <h2>
-        Company Details
-        </h2>
-        <label htmlFor="name">Name:</label>
-        {/* change readOnly to nothing if mode == 'save' */}
-        <input  type ="text" value={name} onChange={(e)=>setName(e.target.value)} readOnly={!IsEditable} />  
-        
-        <label htmlFor="name">Email:</label>
-        <input  type ="text"  value={email} onChange={(e)=>setEmail(e.target.value)} readOnly={!IsEditable} />
+      <div className="rounded-div2">
+        <h2>Company Details</h2>
 
-        <label htmlFor="name">Phone:</label>
-        <input  type ="text"  value={phone} onChange={(e)=>setPhone(e.target.value)} readOnly={!IsEditable} />
+        <label>Name:</label>
+        <input
+          type="text"
+          value={companyDetails.name}
+          onChange={(e) =>
+            setCompanyDetails({ ...companyDetails, name: e.target.value })
+          }
+          readOnly={!isEditable}
+        />
 
-        <label htmlFor="name">Website: </label>
-        <input  type ="text"  value={website} onChange={(e)=>setWebsite(e.target.value)} readOnly={!IsEditable} />
-    </div>
+        <label>Email:</label>
+        <input
+          type="text"
+          value={companyDetails.email}
+          onChange={(e) =>
+            setCompanyDetails({ ...companyDetails, email: e.target.value })
+          }
+          readOnly={!isEditable}
+        />
 
-    <div className="rounded-div2">
-        <h2>
-        Bank Details
-        </h2>
-        <label htmlFor="name">Bank Name:</label>
-        <input  type ="text"  value={bankName} onChange={(e)=>setBankName(e.target.value)} readOnly={!IsEditable} />
+        <label>Phone:</label>
+        <input
+          type="text"
+          value={companyDetails.phone}
+          onChange={(e) =>
+            setCompanyDetails({ ...companyDetails, phone: e.target.value })
+          }
+          readOnly={!isEditable}
+        />
 
-        <label htmlFor="name">Account Holder:</label>
-        <input  type ="text"  value={accountHolder} onChange={(e)=>setAccountHolder(e.target.value)} readOnly={!IsEditable} />
+        <label>Website:</label>
+        <input
+          type="text"
+          value={companyDetails.website}
+          onChange={(e) =>
+            setCompanyDetails({ ...companyDetails, website: e.target.value })
+          }
+          readOnly={!isEditable}
+        />
+      </div>
 
-        <label htmlFor="name">Account Number:</label>
-        <input  type ="text"  value={accountNumber} onChange={(e)=>setAccountNumber(e.target.value)} readOnly={!IsEditable} />
+      <div className="rounded-div2">
+        <h2>Bank Details</h2>
 
-        <label htmlFor="name">Phone:</label>
-        <input  type ="text"  value={bankPhoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)} readOnly={!IsEditable} />
-    </div>
-    
+        <label>Bank Name:</label>
+        <input
+          type="text"
+          value={companyDetails.bankDetails.bankName}
+          onChange={(e) =>
+            setCompanyDetails({
+              ...companyDetails,
+              bankDetails: {
+                ...companyDetails.bankDetails,
+                bankName: e.target.value,
+              },
+            })
+          }
+          readOnly={!isEditable}
+        />
 
+        <label>Account Holder:</label>
+        <input
+          type="text"
+          value={companyDetails.bankDetails.accountHolder}
+          onChange={(e) =>
+            setCompanyDetails({
+              ...companyDetails,
+              bankDetails: {
+                ...companyDetails.bankDetails,
+                accountHolder: e.target.value,
+              },
+            })
+          }
+          readOnly={!isEditable}
+        />
+
+        <label>Account Number:</label>
+        <input
+          type="text"
+          value={companyDetails.bankDetails.accountNumber}
+          onChange={(e) =>
+            setCompanyDetails({
+              ...companyDetails,
+              bankDetails: {
+                ...companyDetails.bankDetails,
+                accountNumber: e.target.value,
+              },
+            })
+          }
+          readOnly={!isEditable}
+        />
+
+        <label>Phone:</label>
+        <input
+          type="text"
+          value={companyDetails.bankDetails.phoneNumber}
+          onChange={(e) =>
+            setCompanyDetails({
+              ...companyDetails,
+              bankDetails: {
+                ...companyDetails.bankDetails,
+                phoneNumber: e.target.value,
+              },
+            })
+          }
+          readOnly={!isEditable}
+        />
+      </div>
     </>
-
   );
 }
 
