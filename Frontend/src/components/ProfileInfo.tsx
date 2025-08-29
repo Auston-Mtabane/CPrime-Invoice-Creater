@@ -1,4 +1,6 @@
+import "../styles/App.css";
 import { useEffect, useState } from "react";
+import Loader1 from "./Loader1";
 
 interface CompanyInfo {
   name: string;
@@ -67,6 +69,9 @@ function ProfileInfo({ mode }: SettingsPageProps) {
 
     fetchData();
   }, []);
+
+    
+
   useEffect(() => {
     if (mode === "edit" && isFilled(companyDetails)) {
       async function saveData() {
@@ -93,6 +98,7 @@ function ProfileInfo({ mode }: SettingsPageProps) {
     }
   }, [mode]);
 
+  if(!isFilled(companyDetails)) return <Loader1 />;
   return (
     <>
       <div className="rounded-div2">

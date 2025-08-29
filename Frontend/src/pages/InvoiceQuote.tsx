@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import InvoiceForm from "../components/InvoiceForm";
 import { useState, useEffect } from "react";
+import Loader1 from "../components/Loader1";
 
 interface Client {
   fname: string;
@@ -56,7 +57,7 @@ const InvoiceQuote = () => {
     fetchCompanyDetails();
   }, []);
 
-  if (!companyDetails) return <p>Loading company details...</p>;
+  if (!companyDetails) return <Loader1 />;
 
   const generateInvoiceHTML = (client: Client, items: Item[], company: CompanyDetails) => `
 <html>
