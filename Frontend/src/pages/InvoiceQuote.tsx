@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import Loader1 from "../components/Loader1";
 
 interface Client {
-  fname: string;
-  femail: string;
-  fphone: string;
+  name: string;
+  email: string;
+  phone: string;
 }
 
 type Item = {
@@ -16,6 +16,13 @@ type Item = {
   amount: number;
   subtotal: number;
 };
+
+type Invoice = {
+  type: "invoice" | "quote";
+  number : string;
+  total: number;
+
+};  
 
 interface CompanyDetails {
   name: string;
@@ -31,12 +38,12 @@ interface CompanyDetails {
 }
 
 const InvoiceQuote = () => {
-  const [client, setClient] = useState<Client>({ fname: "", femail: "", fphone: "" });
+  const [client, setClient] = useState<Client>({ name: "", email: "", phone: "" });
   const [items, setItems] = useState<Item[]>([]);
   const [docType, setDocType] = useState<"invoice" | "quote">("invoice");
   const [companyDetails, setCompanyDetails] = useState<CompanyDetails | null>(null);
-
-  const invoiceNo = "INV-001";
+  const [invoiceNo, setInvoiceNo] = useState<string>("");
+  
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -53,7 +60,22 @@ const InvoiceQuote = () => {
         console.error(error);
       }
     };
+    const fetchNextInvoiceNumber = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/next-invoice-number");
+        if (response.ok) {
+          const data = await response.json();
+            setInvoiceNo(data);
+        } else {
+          alert("Failed to next invoice number");
+        }
+      } catch (error) {
+        alert("Error fetching next invoice number");
+        console.error(error);
+      }
+    };
 
+    fetchNextInvoiceNumber();
     fetchCompanyDetails();
   }, []);
 
@@ -68,9 +90,9 @@ const InvoiceQuote = () => {
           <h1 style="font-size:24px; margin:0 0 10px 0; color:#ffffff;">${
             docType === "invoice" ? "Invoice" : "Quote"
           } for</h1>
-          <p style="margin:4px 0;"><strong>Name:</strong> ${client.fname}</p>
-          <p style="margin:4px 0;"><strong>Email:</strong> ${client.femail}</p>
-          <p style="margin:4px 0;"><strong>Phone:</strong> ${client.fphone}</p>
+          <p style="margin:4px 0;"><strong>Name:</strong> ${client.name}</p>
+          <p style="margin:4px 0;"><strong>Email:</strong> ${client.email}</p>
+          <p style="margin:4px 0;"><strong>Phone:</strong> ${client.phone}</p>
         </td>
 
         <td valign="top" align="right" style="padding:20px; width:50%;">
@@ -153,17 +175,25 @@ const InvoiceQuote = () => {
 `;
 
   const handleSendEmail = async () => {
-    if (!client.fname || !client.femail || !client.fphone) {
+    if (!client.name || !client.email || !client.phone) {
       alert("Please fill in all client details before sending the email.");
       return;
     }
+    
 
     const htmlString = generateInvoiceHTML(client, items, companyDetails);
+    let invoice: Invoice = {
+      type: docType,
+      number: invoiceNo,
+      total: items.reduce((acc, item) => acc + item.subtotal, 0)
+    };
     try {
+      console.log("Sending email with data:", { client, items, invoice, htmlString });
       const response = await fetch("http://localhost:3001/api/invoice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ client, items, html: htmlString }),
+        body: JSON.stringify({ client, items,invoice, html: htmlString }),
+        
       });
       if (response.ok) alert("Email sent!");
       else alert("Email sending failed.");

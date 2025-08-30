@@ -5,7 +5,7 @@ import { ItemForm } from "./ItemForm";
 import DocumentTypeInput from "./DocumentTypeInput";
 
 type Item = {
-  index: number; 
+  index: number;
   name: string;
   quantity: number;
   amount: number;
@@ -13,9 +13,9 @@ type Item = {
 };
 
 interface InvoiceFormProps {
-  client: { fname: string; femail: string; fphone: string };
+  client: { name: string; email: string; phone: string };
   setClient: React.Dispatch<
-    React.SetStateAction<{ fname: string; femail: string; fphone: string }>
+    React.SetStateAction<{ name: string; email: string; phone: string }>
   >;
   items: Item[];
   setItems: React.Dispatch<React.SetStateAction<Item[]>>;
@@ -50,7 +50,7 @@ export default function InvoiceForm({
   const addItem = () => {
     if (!item.name || !item.quantity || !item.amount) return;
     const newItem: Item = {
-      index: items.length, 
+      index: items.length,
       name: item.name,
       quantity: Number(item.quantity),
       amount: Number(item.amount),
@@ -78,7 +78,7 @@ export default function InvoiceForm({
       <div className="rounded-div" id="invoice-items">
         <div className="title">
           <DocumentTypeInput docType={docType} setDocType={setDocType} />
-           <p >
+          <p>
             <strong>Items</strong>
           </p>
         </div>

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { sendEmail } from "./emailService.js";
-import { fetchCompanyDetails,updateComanyDetails } from './databaseFuctions.js';
+import { fetchCompanyDetails,getNextInvoiceNumber,insertInvoice,updateComanyDetails } from './databaseFuctions.js';
 
 const app = express();
 app.use(cors());
@@ -37,6 +37,16 @@ app.get('/settings/data', (req, res) => {
 
 
 });
+app.get('/api/next-invoice-number', (req, res) => {    
+    getNextInvoiceNumber().then(data => {
+        if (data) {
+            res.json(data);
+            console.log('Supabase fetch', data);
+        }
+    }).catch(err => {
+        console.error('Error fetching company details:', err);
+    });
+});
 
 app.post("/settings/update-data", async (req, res) => {
     const companyDetails = req.body;
@@ -50,10 +60,11 @@ app.post("/settings/update-data", async (req, res) => {
 });
 
 app.post("/api/invoice", async (req, res) => {
-    const { client, items, html } = req.body;
+    const { client, items,invoice, html } = req.body;
     console.log('Received invoice data:', client, items);
     try {
-        await sendEmail(client.femail, "C.Prime_ Invoice/Quote", html);
+        insertInvoice(client, items,invoice);
+        await sendEmail(client.email, "C.Prime_ Invoice/Quote", html);
         res.status(200).json({ message: "Invoice sent successfully" });
     } catch (err) {
         res.status(500).json({ error: "Failed to send invoice email" });

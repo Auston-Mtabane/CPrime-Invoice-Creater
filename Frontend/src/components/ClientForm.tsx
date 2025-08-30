@@ -1,9 +1,9 @@
 import React from "react";
 
 interface Client {
-  fname: string;
-  femail: string;
-  fphone: string;
+  name: string;
+  email: string;
+  phone: string;
 }
 
 interface ClientFormProps {
@@ -15,29 +15,29 @@ export function ClientForm({ client, onChange }: ClientFormProps) {
   return (
     <div className="rounded-div" id="client-details">
       <p className="title"><strong>Client Details</strong></p>
-      <label htmlFor="fname">Full Name:</label>
+      <label htmlFor="name">Full Name:</label>
       <input
         type="text"
-        name="fname"
-        value={client.fname}
+        name="name"
+        value={client.name}
         onChange={onChange}
         placeholder="John Doe"
       />
 
-      <label htmlFor="femail">Email:</label>
+      <label htmlFor="email">Email:</label>
       <input
         type="email"
-        name="femail"
-        value={client.femail}
+        name="email"
+        value={client.email}
         onChange={onChange}
         placeholder="doejohn3@gmail.com"
       />
 
-      <label htmlFor="fphone">Mobile/Tel:</label>
+      <label htmlFor="phone">Mobile/Tel:</label>
       <input
         type="tel"
-        name="fphone"
-        value={client.fphone}
+        name="phone"
+        value={client.phone}
         onChange={onChange}
         placeholder="27 61 961 0499"
       />
