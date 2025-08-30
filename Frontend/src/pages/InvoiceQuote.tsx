@@ -153,16 +153,16 @@ const InvoiceQuote = () => {
         <td colspan="2" style="padding:20px;">
           <h3>Payment Details:</h3>
           <table style="border-collapse: collapse; width: 100%; max-width: 500px; font-size: .7em;">
-            <tr><td style="padding: 6px;"><strong>Bank Name:</strong></td><td>${company.bankDetails.bankName}</td></tr>
-            <tr><td style="padding: 6px;"><strong>Account Holder:</strong></td><td>${company.bankDetails.accountHolder}</td></tr>
-            <tr><td style="padding: 6px;"><strong>Account Number:</strong></td><td>${company.bankDetails.accountNumber}</td></tr>
-            <tr><td style="padding: 6px;"><strong>Phone Number:</strong></td><td>${company.bankDetails.phoneNumber}</td></tr>
+            <tr><td ><strong>Bank Name:</strong></td><td>${company.bankDetails.bankName}</td></tr>
+            <tr><td ><strong>Account Holder:</strong></td><td>${company.bankDetails.accountHolder}</td></tr>
+            <tr><td ><strong>Account Number:</strong></td><td>${company.bankDetails.accountNumber}</td></tr>
+            <tr><td ><strong>Phone Number:</strong></td><td>${company.bankDetails.phoneNumber}</td></tr>
           </table>
         </td>
       </tr>
 
       <tr>
-        <td colspan="2" align="center" style="padding:20px;" background-color:#1a1a1a;>
+        <td colspan="2" align="center" style="padding:20px;" background-color:#ff7700c3;>
           <p style="margin:4px 0;">Thank you for your business!</p>
           <p style="margin:4px 0;">For any queries, please contact us at 
             <a href="mailto:${company.email}" style="color:#646cff; text-decoration:none;">${company.email}</a>

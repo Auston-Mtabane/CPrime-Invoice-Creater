@@ -64,7 +64,7 @@ app.post("/api/invoice", async (req, res) => {
     console.log('Received invoice data:', client, items);
     try {
         insertInvoice(client, items,invoice);
-        await sendEmail(client.email, "C.Prime_ Invoice/Quote", html);
+        await sendEmail(client.email, `C.Prime_ Invoice/Quote : ${invoice.number}`, html);
         res.status(200).json({ message: "Invoice sent successfully" });
     } catch (err) {
         res.status(500).json({ error: "Failed to send invoice email" });
