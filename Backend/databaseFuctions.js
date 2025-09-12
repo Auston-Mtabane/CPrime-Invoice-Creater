@@ -25,7 +25,7 @@ export async function fetchCompanyDetails() {
 
         let { data, error } = await supabase
             .from('company_details')
-            .select("1").select("*")
+            .select("1").select("*");
 
         console.log(data);
         companyDetails.name = data[0].name;

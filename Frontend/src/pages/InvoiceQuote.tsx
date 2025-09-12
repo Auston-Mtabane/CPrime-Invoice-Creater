@@ -207,6 +207,7 @@ const InvoiceQuote = () => {
     <div className="page">
       <div id="container">
         <div id="form-section">
+          <h2>Invoice Data</h2>
           <InvoiceForm
             client={client}
             setClient={setClient}
@@ -218,6 +219,7 @@ const InvoiceQuote = () => {
         </div>
 
         <div id="preview-section">
+          <h2>Email Preview</h2>
           <iframe
             title="Invoice Preview"
             srcDoc={generateInvoiceHTML(client, items, companyDetails)}
